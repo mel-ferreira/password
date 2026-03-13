@@ -1,8 +1,6 @@
 package api.password.service;
-import api.password.service.validator.MinimoCaracteresValidacao;
-import api.password.service.validator.SenhaValidacao;
+import api.password.service.validator.*;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -13,7 +11,14 @@ public class ValidadorSenhaService {
     public ValidadorSenhaService() {
 
         this.validacoes = List.of(
-                new MinimoCaracteresValidacao()
+                new NaoVaziaValidacao(),
+                new MinimoCaracteresValidacao(),
+                new LetraMaiusculaValidacao(),
+                new LetraMinusculaValidacao(),
+                new UmDigitoValidacao(),
+                new EspacoBrancoValidacao(),
+                new CaractereEspecialValidacao(),
+                new RepetirCaractereValidacao()
         );
     }
 
@@ -25,6 +30,5 @@ public class ValidadorSenhaService {
             }
         }
         return true;
-
     }
 }

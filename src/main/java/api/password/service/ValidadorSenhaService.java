@@ -1,6 +1,4 @@
 package api.password.service;
-
-
 import api.password.service.validator.MinimoCaracteresValidacao;
 import api.password.service.validator.SenhaValidacao;
 import org.springframework.stereotype.Service;

@@ -2,7 +2,6 @@ package api.password.exception;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.Instant;
 
 @Getter
@@ -26,4 +25,3 @@ public class ErroPadronizado {
         this.caminhoUrl = caminhoUrl;
     }
 }
-

@@ -41,9 +41,8 @@ IsValid("AbTp9!fok") // true
 ```
 🏗 Arquitetura da solução
 
-**Layered  Architecture**
-
 ![img.png](img.png)
+
 (feito por Melissa Ferreira)
 
 A aplicação foi estruturada seguindo boas práticas de engenharia de software, separando responsabilidades em camadas.

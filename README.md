@@ -69,7 +69,7 @@ public class SenhaController {
     ValidadorSenhaService validadorSenhaService;
 
     @PostMapping
-    public ResponseEntity<SenhaResponse> entradaSenha(@RequestBody @Valid SenhaRequest senhaRequest)
+    public ResponseEntity<SenhaResponse> validarSenha(@RequestBody @Valid SenhaRequest senhaRequest)
     {
         boolean valido = validadorSenhaService.validador(senhaRequest.senha);
 

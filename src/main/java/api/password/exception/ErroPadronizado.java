@@ -8,6 +8,7 @@ import java.time.Instant;
 @Setter
 public class ErroPadronizado {
 
+    private Boolean senhaValidada;
     private Instant tempoErro;
     private Integer status;
     private String erro;
@@ -17,7 +18,8 @@ public class ErroPadronizado {
     public ErroPadronizado() {
     }
 
-    public ErroPadronizado(Instant tempoErro, Integer status, String erro, String mensagem, String caminhoUrl) {
+    public ErroPadronizado( Boolean senhaValidada, Instant tempoErro, Integer status, String erro, String mensagem, String caminhoUrl) {
+        this.senhaValidada = senhaValidada;
         this.tempoErro = tempoErro;
         this.status = status;
         this.erro = erro;

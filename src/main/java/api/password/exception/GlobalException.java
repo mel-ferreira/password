@@ -19,6 +19,7 @@ public class GlobalException {
         HttpStatus status = HttpStatus.BAD_REQUEST;
 
         ErroPadronizado err = new ErroPadronizado(
+                false,
                 Instant.now(),
                 status.value(),
                 "Regra de negócio",

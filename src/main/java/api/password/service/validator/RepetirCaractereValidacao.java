@@ -1,9 +1,14 @@
 package api.password.service.validator;
 
 import api.password.exception.RegraNegocioException;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
 import java.util.HashSet;
 import java.util.Set;
 
+@Order(7)
+@Component
 public class RepetirCaractereValidacao implements SenhaValidacao {
 
     @Override

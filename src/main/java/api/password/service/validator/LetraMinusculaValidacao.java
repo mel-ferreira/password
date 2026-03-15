@@ -1,7 +1,11 @@
 package api.password.service.validator;
 
 import api.password.exception.RegraNegocioException;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
+@Order(4)
+@Component
 public class LetraMinusculaValidacao implements SenhaValidacao {
 
     @Override

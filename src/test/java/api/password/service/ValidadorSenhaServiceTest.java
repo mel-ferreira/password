@@ -1,12 +1,26 @@
 package api.password.service;
 
+import api.password.exception.RegraNegocioException;
+import api.password.service.validator.*;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class ValidadorSenhaServiceTest {
 
-    private final ValidadorSenhaService service = new ValidadorSenhaService();
+    private final ValidadorSenhaService service =
+            new ValidadorSenhaService(List.of(
+                    new NaoVaziaValidacao(),
+                    new MinimoCaracteresValidacao(),
+                    new LetraMaiusculaValidacao(),
+                    new LetraMinusculaValidacao(),
+                    new UmDigitoValidacao(),
+                    new EspacoBrancoValidacao(),
+                    new CaractereEspecialValidacao(),
+                    new RepetirCaractereValidacao()
+            ));
 
     @Test
     void deveValidarSenhaCompleta() {
@@ -14,6 +28,7 @@ class ValidadorSenhaServiceTest {
         String senha = "Ab1@cdefg";
 
         boolean resultado = service.validador(senha);
+
         assertTrue(resultado);
     }
 
@@ -23,7 +38,7 @@ class ValidadorSenhaServiceTest {
         String senha = "abcdefghi";
 
         assertThrows(
-                Exception.class,
+                RegraNegocioException.class,
                 () -> service.validador(senha)
         );
     }

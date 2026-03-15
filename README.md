@@ -52,7 +52,7 @@ exception
 test
 ```
 
-**Camadas**
+### Camadas
 
 **Controller**
 
@@ -132,13 +132,29 @@ Exemplos:
 - RegraCaractereEspecial
 - RegraCaracterUnico
 
-Exception
+**Exception**
 
 Tratamento centralizado de erros da aplicação seguindo a estrutura:
 
 - StandardError
 - ExceptionHandlerGlobal 
 - BusinessException
+
+**Estratégia de resposta da API**
+
+Embora o desafio peça **apenas o retorno de um boolean** indicando se a senha é válida,
+optei por tratar violações das regras de senha como erro de requisição (HTTP 400).
+
+Essa decisão foi tomada porque a senha inválida representa uma falha na entrada enviada
+pelo cliente da API, e não um resultado de processamento bem-sucedido (HTTP 200). 
+
+Dessa forma, quando uma regra de validação falha, a API retorna:
+
+- boolean false (como solicitado no desafio)
+- HTTP 400 (Bad Request)
+- Uma mensagem explicando qual regra foi violada
+
+Isso permite que o cliente entenda claramente o motivo da falha e corrija a senha informada, pois, somente com o boolean não é possível visualizar a regra de negócio que não foi seguida. E retornando um HTTP 200 para a requisição, mesmo a senha estando fora do formato definido, demonstra divergência na validação dos dados. 
 
 🎯 Padrões e boas práticas aplicadas
 
@@ -161,6 +177,13 @@ Endpoint
 
 ```POST /validacao```
 
+Request 
+```
+{
+  "senha": "AbTp9!fok"
+}
+```
+
 🧪 Testes
 
 A aplicação possui testes para garantir o correto funcionamento das regras.
@@ -177,13 +200,11 @@ Exemplo:
 
 **Testes de service**
 
-Testam a lógica completa de validação de senha.
+Testam a lógica completa de validação de senha utilizando Given/When/Then
 
 **Testes de integração**
 
-(Em desenvolvimento)
-
-Testar o endpoint da API utilizando Spring Boot Test.
+Testar o endpoint da API utilizando Spring Boot Test utilizando Given/When/Then e @DisplayName
 
 📈 Adicionais:
 
@@ -191,7 +212,7 @@ Testar o endpoint da API utilizando Spring Boot Test.
 - Logs
 - Teste de Service
 - Estrutura de Exception: ExceptionHandlerGlobal
-- Label Model
+- Layered  Architecture
 
 🧰 Tecnologias utilizadas
 
@@ -201,6 +222,7 @@ Testar o endpoint da API utilizando Spring Boot Test.
 - Spring Validation
 - Lombok
 - JUnit
+- Mockito
 - Spring Boot Test
 
 📊 Observabilidade
@@ -236,4 +258,4 @@ http://localhost:8080
 ```
 ✨ Autora
 
-Projeto desenvolvido por Mel Ferreira como parte de um desafio técnico. 
+Projeto desenvolvido por Melissa Ferreira como parte de um desafio técnico. 

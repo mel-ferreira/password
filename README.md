@@ -41,6 +41,11 @@ IsValid("AbTp9!fok") // true
 ```
 🏗 Arquitetura da solução
 
+**Layered  Architecture**
+
+![img.png](img.png)
+(feito por Melissa Ferreira)
+
 A aplicação foi estruturada seguindo boas práticas de engenharia de software, separando responsabilidades em camadas.
 
 ```
@@ -84,8 +89,8 @@ public class SenhaController {
 **Service**
 
 Contém a regra de negócio da aplicação.
-Nesse projeto, separei cada validação com a sua própria lógica em arquivos diferentes para poder executar testes de unidade com mais precisão. 
-Cada classe das validações implementam a Senha Validação (uma interface) são adicionadas a uma lista (do tipo SenhaValidação também) e 
+Nesse projeto, separei cada validação com a sua própria lógica em arquivos diferentes para poder executar testes de unidade com mais precisão.
+Cada classe das validações implementam a Senha Validação (uma interface) são adicionadas a uma lista (do tipo SenhaValidação também) e
 validadas dentro de uma estrutura de loop "for".
 
 ```java
@@ -137,7 +142,7 @@ Exemplos:
 Tratamento centralizado de erros da aplicação seguindo a estrutura:
 
 - StandardError
-- ExceptionHandlerGlobal 
+- ExceptionHandlerGlobal
 - BusinessException
 
 **Estratégia de resposta da API**
@@ -146,7 +151,7 @@ Embora o desafio peça **apenas o retorno de um boolean** indicando se a senha �
 optei por tratar violações das regras de senha como erro de requisição (HTTP 400).
 
 Essa decisão foi tomada porque a senha inválida representa uma falha na entrada enviada
-pelo cliente da API, e não um resultado de processamento bem-sucedido (HTTP 200). 
+pelo cliente da API, e não um resultado de processamento bem-sucedido (HTTP 200).
 
 Dessa forma, quando uma regra de validação falha, a API retorna:
 
@@ -154,7 +159,7 @@ Dessa forma, quando uma regra de validação falha, a API retorna:
 - HTTP 400 (Bad Request)
 - Uma mensagem explicando qual regra foi violada
 
-Isso permite que o cliente entenda claramente o motivo da falha e corrija a senha informada, pois, somente com o boolean não é possível visualizar a regra de negócio que não foi seguida. E retornando um HTTP 200 para a requisição, mesmo a senha estando fora do formato definido, demonstra divergência na validação dos dados. 
+Isso permite que o cliente entenda claramente o motivo da falha e corrija a senha informada, pois, somente com o boolean não é possível visualizar a regra de negócio que não foi seguida. E retornando um HTTP 200 para a requisição, mesmo a senha estando fora do formato definido, demonstra divergência na validação dos dados.
 
 🎯 Padrões e boas práticas aplicadas
 
@@ -177,13 +182,29 @@ Endpoint
 
 ```POST /validacao```
 
-Request 
+Request
 ```
 {
   "senha": "AbTp9!fok"
 }
 ```
+Response
+```
+{
+  "senhaValidada": true
+}
+```
+ou
+```
+    "senhaValidada": false, --> boolean
 
+   -- adicionais --
+    "tempoErro": "", 
+    "status": 400,
+    "erro": "Regra de negócio",
+    "mensagem": "",
+    "caminhoUrl": "/validacao"
+```
 🧪 Testes
 
 A aplicação possui testes para garantir o correto funcionamento das regras.
@@ -224,6 +245,7 @@ Testar o endpoint da API utilizando Spring Boot Test utilizando Given/When/Then 
 - JUnit
 - Mockito
 - Spring Boot Test
+- Swagger
 
 📊 Observabilidade
 
@@ -231,7 +253,9 @@ Foram adicionados logs na aplicação para auxiliar na análise de comportamento
 
 📚 Documentação da API
 
-A documentação da API será disponibilizada utilizando Swagger / OpenAPI.
+A documentação interativa da API está disponível via Swagger:
+
+http://localhost:8080/swagger-ui/index.html
 
 🗂 Organização do desenvolvimento
 
@@ -240,7 +264,7 @@ https://trello.com/b/6yh2ds0m/password
 
 🚀 Como executar o projeto
 
- - Clone o repositório
+- Clone o repositório
 ```
 git clone https://github.com/mel-ferreira/password.git
 ```
@@ -258,4 +282,4 @@ http://localhost:8080
 ```
 ✨ Autora
 
-Projeto desenvolvido por Melissa Ferreira como parte de um desafio técnico. 
+Projeto desenvolvido por Melissa Ferreira como parte de um desafio técnico.
